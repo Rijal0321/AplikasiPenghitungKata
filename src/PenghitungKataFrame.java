@@ -1,12 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+import javax.swing.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
-/**
- *
- * @author User
- */
 public class PenghitungKataFrame extends javax.swing.JFrame {
 
     /**
@@ -127,6 +123,11 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
         });
 
         btnSave.setText("Simpan Kata");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnHapus.setText("Hapus");
 
@@ -145,11 +146,12 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(202, 202, 202))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(82, 82, 82)
-                                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(28, 28, 28)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,12 +165,11 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(btnKeluar)
-                                            .addComponent(btnHapus))))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(202, 202, 202))))
+                                            .addComponent(btnHapus)))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(82, 82, 82)
+                                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(9, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,7 +237,7 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
         // Hitung jumlah paragraf
         String[] paragraphs = text.split("\\n\\s*\\n");
         int paragraphCount = (text.isEmpty()) ? 0 : paragraphs.length;
-
+        
         // Update label
         jLabel3.setText("Jumlah Kata: " + wordCount);
         jLabel4.setText("Jumlah Karakter: " + charCount);
@@ -263,6 +264,21 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
             jLabel8.setText("Kata '" + searchWord + "' tidak ditemukan");
         }
     }//GEN-LAST:event_btnHitungActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        String text = txtArea.getText();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("hasil_penghitungan.txt"))) {
+            writer.write("Teks:\n" + text + "\n\n");
+            writer.write(jLabel3.getText() + "\n");
+            writer.write(jLabel4.getText() + "\n");
+            writer.write(jLabel5.getText() + "\n");
+            writer.write(jLabel6.getText() + "\n");
+            writer.write(jLabel8.getText() + "\n");
+            JOptionPane.showMessageDialog(this, "Hasil disimpan ke hasil_penghitungan.txt");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Gagal menyimpan file!");
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments
