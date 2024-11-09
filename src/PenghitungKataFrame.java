@@ -100,7 +100,7 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 204, 204));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel8.setText("Jumlah Kata Yang Ditemukan : 0");
+        jLabel8.setText("Jumlah Kata Yang Ditemukan : 0 Kali");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -108,7 +108,7 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -120,6 +120,11 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
         );
 
         btnHitung.setText("Hitung Kata");
+        btnHitung.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHitungActionPerformed(evt);
+            }
+        });
 
         btnSave.setText("Simpan Kata");
 
@@ -213,6 +218,51 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnHitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHitungActionPerformed
+        String text = txtArea.getText();
+        
+        // Hitung jumlah kata
+        String[] words = text.trim().split("\\s+");
+        int wordCount = (text.isEmpty()) ? 0 : words.length;
+        
+        // Hitung jumlah karakter (termasuk spasi)
+        int charCount = text.length();
+        
+        // Hitung jumlah kalimat
+        String[] sentences = text.split("[.!?]");
+        int sentenceCount = (text.isEmpty()) ? 0 : sentences.length;
+        
+        // Hitung jumlah paragraf
+        String[] paragraphs = text.split("\\n\\s*\\n");
+        int paragraphCount = (text.isEmpty()) ? 0 : paragraphs.length;
+
+        // Update label
+        jLabel3.setText("Jumlah Kata: " + wordCount);
+        jLabel4.setText("Jumlah Karakter: " + charCount);
+        jLabel5.setText("Jumlah Kalimat: " + sentenceCount);
+        jLabel6.setText("Jumlah Paragraf: " + paragraphCount);
+
+        // Hitung kemunculan kata yang dicari
+        String searchWord = searchField.getText().trim();
+        int wordOccurrence = 0;
+        if (!searchWord.isEmpty()) {
+            for (String word : words) {
+                if (word.equalsIgnoreCase(searchWord)) {
+                    wordOccurrence++;
+                }
+            }
+        }
+
+        // Update label pencarian kata
+        if (searchWord.isEmpty()) {
+            jLabel8.setText("Kata Ditemukan: 0 kali");
+        } else if (wordOccurrence > 0) {
+            jLabel8.setText("Kata '" + searchWord + "' ditemukan " + wordOccurrence + " kali");
+        } else {
+            jLabel8.setText("Kata '" + searchWord + "' tidak ditemukan");
+        }
+    }//GEN-LAST:event_btnHitungActionPerformed
 
     /**
      * @param args the command line arguments
