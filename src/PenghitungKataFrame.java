@@ -297,24 +297,35 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHitungActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Pilih lokasi untuk menyimpan file");
-        int userSelection = fileChooser.showSaveDialog(this);
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setDialogTitle("Pilih lokasi untuk menyimpan file");
 
-        if (userSelection == JFileChooser.APPROVE_OPTION) {
-            File fileToSave = fileChooser.getSelectedFile();
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
-                writer.write("Teks:\n" + txtArea.getText() + "\n\n");
-                writer.write(jLabel3.getText() + "\n");
-                writer.write(jLabel4.getText() + "\n");
-                writer.write(jLabel5.getText() + "\n");
-                writer.write(jLabel6.getText() + "\n");
-                writer.write(jLabel8.getText() + "\n");
-                JOptionPane.showMessageDialog(this, "Hasil disimpan ke " + fileToSave.getAbsolutePath());
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(this, "Gagal menyimpan file!");
-            }
+    // Set file filter untuk hanya menampilkan file .txt
+    fileChooser.setAcceptAllFileFilterUsed(false);
+    fileChooser.addChoosableFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Text Files", "txt"));
+
+    int userSelection = fileChooser.showSaveDialog(this);
+
+    if (userSelection == JFileChooser.APPROVE_OPTION) {
+        File fileToSave = fileChooser.getSelectedFile();
+        
+        // Tambahkan ekstensi .txt jika pengguna tidak memilihnya
+        if (!fileToSave.getName().endsWith(".txt")) {
+            fileToSave = new File(fileToSave.getAbsolutePath() + ".txt");
         }
+        
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
+            writer.write("Teks:\n" + txtArea.getText() + "\n\n");
+            writer.write(jLabel3.getText() + "\n");
+            writer.write(jLabel4.getText() + "\n");
+            writer.write(jLabel5.getText() + "\n");
+            writer.write(jLabel6.getText() + "\n");
+            writer.write(jLabel8.getText() + "\n");
+            JOptionPane.showMessageDialog(this, "Hasil disimpan ke " + fileToSave.getAbsolutePath());
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Gagal menyimpan file!");
+        }
+    }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
