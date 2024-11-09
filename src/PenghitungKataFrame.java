@@ -130,8 +130,18 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
         });
 
         btnHapus.setText("Hapus");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
 
         btnKeluar.setText("Keluar");
+        btnKeluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKeluarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -279,6 +289,20 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Gagal menyimpan file!");
         }
     }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        txtArea.setText("");
+        searchField.setText("");
+        jLabel3.setText("Jumlah Kata: 0");
+        jLabel4.setText("Jumlah Karakter: 0");
+        jLabel5.setText("Jumlah Kalimat: 0");
+        jLabel6.setText("Jumlah Paragraf: 0");
+        jLabel8.setText("Kata Ditemukan: 0 kali");
+    }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnKeluarActionPerformed
 
     /**
      * @param args the command line arguments
