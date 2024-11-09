@@ -1,10 +1,6 @@
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -301,17 +297,23 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHitungActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        String text = txtArea.getText();
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("hasil_penghitungan.txt"))) {
-            writer.write("Teks:\n" + text + "\n\n");
-            writer.write(jLabel3.getText() + "\n");
-            writer.write(jLabel4.getText() + "\n");
-            writer.write(jLabel5.getText() + "\n");
-            writer.write(jLabel6.getText() + "\n");
-            writer.write(jLabel8.getText() + "\n");
-            JOptionPane.showMessageDialog(this, "Hasil disimpan ke hasil_penghitungan.txt");
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Gagal menyimpan file!");
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Pilih lokasi untuk menyimpan file");
+        int userSelection = fileChooser.showSaveDialog(this);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
+                writer.write("Teks:\n" + txtArea.getText() + "\n\n");
+                writer.write(jLabel3.getText() + "\n");
+                writer.write(jLabel4.getText() + "\n");
+                writer.write(jLabel5.getText() + "\n");
+                writer.write(jLabel6.getText() + "\n");
+                writer.write(jLabel8.getText() + "\n");
+                JOptionPane.showMessageDialog(this, "Hasil disimpan ke " + fileToSave.getAbsolutePath());
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Gagal menyimpan file!");
+            }
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
