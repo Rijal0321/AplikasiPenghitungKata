@@ -27,6 +27,9 @@ Fitur tambahan dari aplikasi ini adalah kemampuan untuk menyimpan teks beserta h
 4. **Simpan Hasil ke File**: Memungkinkan pengguna untuk menyimpan hasil analisis beserta teks ke dalam file `.txt` untuk referensi di masa mendatang.
 5. **Berguna untuk Analisis Teks**: Aplikasi ini cocok digunakan untuk analisis teks sederhana, baik itu untuk kebutuhan pribadi atau untuk membantu dalam tugas atau pekerjaan yang memerlukan pemahaman tentang teks secara lebih mendalam.
 
+## Pembuat Aplikasi
+
+Muhammad Rijal Aditya (2210010148)
 
 ## GIF Demo Aplikasi
 ![App Screenshot](https://github.com/Rijal0321/AplikasiPenghitungKata/blob/main/img/Tugas-5.gif)
