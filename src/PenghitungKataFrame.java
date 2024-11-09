@@ -257,7 +257,7 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
         int charCount = text.length();
 
         // Hitung jumlah kalimat
-        String[] sentences = text.split("[.!?]");
+        String[] sentences = text.split("(?<=[.!?])\\s+");
         int sentenceCount = (text.isEmpty()) ? 0 : sentences.length;
 
         // Hitung jumlah paragraf
