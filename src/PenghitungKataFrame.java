@@ -1,4 +1,9 @@
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,7 +15,22 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
      */
     public PenghitungKataFrame() {
         initComponents();
+        
+        txtArea.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+        public void insertUpdate(javax.swing.event.DocumentEvent evt) {
+           countText();
+        }
+        public void removeUpdate(javax.swing.event.DocumentEvent evt) {
+            countText();
+        }
+        public void changedUpdate(javax.swing.event.DocumentEvent evt) {
+            countText();
+        }
+    });
+        
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -230,24 +250,24 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnHitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHitungActionPerformed
+    private void countText() {
         String text = txtArea.getText();
-        
+
         // Hitung jumlah kata
         String[] words = text.trim().split("\\s+");
         int wordCount = (text.isEmpty()) ? 0 : words.length;
-        
+
         // Hitung jumlah karakter (termasuk spasi)
         int charCount = text.length();
-        
+
         // Hitung jumlah kalimat
         String[] sentences = text.split("[.!?]");
         int sentenceCount = (text.isEmpty()) ? 0 : sentences.length;
-        
+
         // Hitung jumlah paragraf
         String[] paragraphs = text.split("\\n\\s*\\n");
         int paragraphCount = (text.isEmpty()) ? 0 : paragraphs.length;
-        
+
         // Update label
         jLabel3.setText("Jumlah Kata: " + wordCount);
         jLabel4.setText("Jumlah Karakter: " + charCount);
@@ -273,6 +293,11 @@ public class PenghitungKataFrame extends javax.swing.JFrame {
         } else {
             jLabel8.setText("Kata '" + searchWord + "' tidak ditemukan");
         }
+    }
+    
+    
+    private void btnHitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHitungActionPerformed
+        countText();
     }//GEN-LAST:event_btnHitungActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
